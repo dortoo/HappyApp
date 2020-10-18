@@ -9,10 +9,15 @@ import mapIcon from '../utils/mapIcon';
 import '../styles/pages/orphanages-map.css';
 import api from '../services/api';
 
-function OrphanagesMap() {
-  const [orphanages, setOrphanages] = useState([]);
+interface Orphanage {
+  id: number;
+  latitude: number;
+  longitude: number;
+  name: string;
+}
 
-  console.log(orphanages);
+function OrphanagesMap() {
+  const [orphanages, setOrphanages] = useState<Orphanage[]>([]);
 
   useEffect(() => {
     api.get('orphanages').then(response => {
@@ -46,17 +51,22 @@ function OrphanagesMap() {
          url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
         />
 
-        <Marker
-          icon={mapIcon}
-          position={[-8.136485,-34.9175803]}
-        >
-          <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
-            Lar das meninas
-            <Link to="/orphanages/1">
-              <FiArrowRight size={20} color="#FFF" />
-            </Link>
-          </Popup>
-        </Marker>
+        {orphanages.map(orphanage => {
+          return (
+            <Marker
+              icon={mapIcon}
+              position={[orphanage.latitude, orphanage.longitude]}
+              key={orphanage.id}
+            >
+              <Popup closeButton={false} minWidth={240} maxWidth={240} className="map-popup">
+                {orphanage.name}
+                <Link to={`/orphanages/${orphanage.id}`}>
+                  <FiArrowRight size={20} color="#FFF" />
+                </Link>
+              </Popup>
+            </Marker>
+          )
+        })}
       </Map>
 
     <Link to="/orphanages/create" className="create-orphanage">
