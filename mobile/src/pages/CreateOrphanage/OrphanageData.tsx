@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ScrollView, View, StyleSheet, Switch, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
+import { useRoute } from '@react-navigation/native';
 
 export default function OrphanageData() {
+  const [name, setName] = useState('');
+  const [about, setAbout] = useState('');
+  const [instructions, setInstructions] = useState('');
+  const [opening_hours, setOpeningHours] = useState('');
+  const [open_on_weekends, setOpenOnWeekends] = useState(true);
+
+  const route = useRoute();
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 24 }}>
       <Text style={styles.title}>Dados</Text>
@@ -19,10 +28,10 @@ export default function OrphanageData() {
         multiline
       />
 
-      <Text style={styles.label}>Whatsapp</Text>
+      {/* <Text style={styles.label}>Whatsapp</Text>
       <TextInput
         style={styles.input}
-      />
+      /> */}
 
       <Text style={styles.label}>Fotos</Text>
       <TouchableOpacity style={styles.imagesInput} onPress={() => {}}>
