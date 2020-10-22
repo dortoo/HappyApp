@@ -6,8 +6,6 @@
 
 ![](https://i.imgur.com/42lZqQd.jpg)
 
-![](https://i.imgur.com/rTd1QmT.jpg)
-
 ---
 
 ### English :us: :uk:
